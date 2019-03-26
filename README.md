@@ -1,2 +1,3 @@
-# Rstat_LearningLibrary
-Examples of analyses and code I have assembled. 
+# rstats LearningLibrary
+
+This repository hold R-stats code examples of things I have come across or developed over the years. 
