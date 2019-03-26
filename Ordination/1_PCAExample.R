@@ -62,22 +62,19 @@ mtext(side=1,line=1.5,"Principal Components")
 mtext(side=2,line=1.5,"Eigenvalue")
 
 
-plot(c(-2,2),c(-2,2),type="n",yaxt="n",xaxt="n",ylab=NA,xlab=NA)
-abline(h=0,v=0,lty=3,col="grey")
-x=ordiellipse(my.rda,group=dune.env$Management,draw="polygon",label=F,col=c("dodgerblue1","indianred1"),border=T,cex=0.8)
-
+#biplot
 scrs=scores(my.rda,display=c("sites","species"));#extracts scores from PCA analysis
 
-#biplot
-xlim.val=c(-3,3);by.x=1;xmaj=c(0,seq(xlim.val[1],xlim.val[2],by.x));xmin=seq(xlim.val[1],xlim.val[2],by.x/2)
-ylim.val=c(-3,2);by.y=1;ymaj=c(0,seq(ylim.val[1],ylim.val[2],by.y));ymin=seq(ylim.val[1],ylim.val[2],by.y/2)
-plot(xlim.val,ylim.val,type="n",yaxt="n",xaxt="n",ylab=NA,xlab=NA)
-abline(h=0,v=0,lty=3,col="grey")
-points(scrs$sites,pch=21,bg="grey",cex=1,lwd=0.5)
-arrows(0,0,scrs$species[,1],scrs$species[,2],length = 0.05, angle = 15, code = 2,col="indianred1",lwd=1.5)
-with(scrs,text(species[,1]+0.25,species[,2],labels=rownames(species),cex=0.5));#adds labels to the arrows
-axis_fun(1,line=-0.5,xmaj,xmin,format(xmaj),1)
-axis_fun(2,ymaj,ymin,format(ymaj),1)
+#Basic biplot you get from biplot()
+xlim.val=c(-3,3);by.x=1;xmaj=c(0,seq(xlim.val[1],xlim.val[2],by.x));xmin=seq(xlim.val[1],xlim.val[2],by.x/2);# xlim., major and minor ticks all in one line
+ylim.val=c(-3,2);by.y=1;ymaj=c(0,seq(ylim.val[1],ylim.val[2],by.y));ymin=seq(ylim.val[1],ylim.val[2],by.y/2);# ylim., major and minor ticks all in one line
+plot(xlim.val,ylim.val,type="n",yaxt="n",xaxt="n",ylab=NA,xlab=NA);#essentially an empty plot
+abline(h=0,v=0,lty=3,col="grey");# makes the fancy 0 axis lines
+points(scrs$sites,pch=21,bg="grey",cex=1,lwd=0.5); #plots the points
+arrows(0,0,scrs$species[,1],scrs$species[,2],length = 0.05, angle = 15, code = 2,col="indianred1",lwd=1.5);# makes the arrows
+with(scrs,text(species[,1]+0.25,species[,2],labels=rownames(species),cex=0.5));#adds labels to the arrows; 
+axis_fun(1,line=-0.5,xmaj,xmin,format(xmaj),1); #adds x axis ticks
+axis_fun(2,ymaj,ymin,format(ymaj),1); #adds y axis ticks
 mtext(side=1,line=1.8,paste0("PCA 1 (",round(eig.pca$variance[1],1),"%)"));#adds x axis label with percent variance
 mtext(side=2,line=2,paste0("PCA 2 (",round(eig.pca$variance[2],1),"%)"));#adds y axis label with percent variance
 
